@@ -1,0 +1,29 @@
+###
+GET http://localhost:8080/api/categories/65f3aa738fb386ac6f3d3e68 HTTP/1.1
+
+###
+## Creat a new categories
+POST http://localhost:8080/api/categories HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTMwZTUzNzMzZmY0ZWY2NTEwM2IzOTQiLCJlbWFpbCI6IlBoYXRAZ21haWwuY29tIiwiaWF0IjoxNjk3NzA0NzU1LCJleHAiOjE2OTkwMDA3NTV9.ZUKsEjsEidNsTzsqTdoJs6qo12qxUbxQ1pV8nltQGJM
+
+{
+    "category_name": "Tablet",
+    "description": ""
+}
+
+###
+## Update a  categories by ID
+PATCH  http://localhost:8080/api/categories/65f3ace13ffb3e2a2636a0a4 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTMwZTUzNzMzZmY0ZWY2NTEwM2IzOTQiLCJlbWFpbCI6IlBoYXRAZ21haWwuY29tIiwiaWF0IjoxNjk3NzA0NzU1LCJleHAiOjE2OTkwMDA3NTV9.ZUKsEjsEidNsTzsqTdoJs6qo12qxUbxQ1pV8nltQGJM
+
+{
+"category_name":"Iphone",
+"description":"Màu sắc năng động"
+}
+
+###
+DELETE   http://localhost:8080/api/categories/65f3ace13ffb3e2a2636a0a4 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzYWE5ZDhmYjM4NmFjNmYzZDNlNmMiLCJlbWFpbCI6IlBoYXRAZ21haWwuY29tIiwiaWF0IjoxNzEwNDkzMzQwLCJleHAiOjE3MTE3ODkzNDB9.pk7QeMxd_ObnXdl1PiEiZ8UFMe3_BWY6n-j9Pe48L2M

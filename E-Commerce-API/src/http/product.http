@@ -1,0 +1,34 @@
+POST http://localhost:8080/api/products HTTP/1.1
+content-type: application/json
+
+{
+    "product_name": "iPhone 13 Pro Max 128GB",
+    "price": 1600,
+    "discount":0,
+    "stock":5,
+    "description": "",
+    "categoryId": "",
+    "brandId": "65f7adac9ee0c5e89f120fe6",
+    "thumbnail": "Hinh2"
+}
+
+###
+PATCH  http://localhost:8080/api/products/65fb903659eb2e4027f0b0c2 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Iphone 14 256GB",
+    "price": 100000,
+    "discount":0,
+    "stock":5,
+    "description": "",
+    "category": "",
+    "brand": "65f7adac9ee0c5e89f120fe6",
+    "thumbnail": "image/hinh-2"
+}
+
+
+###
+DELETE http://localhost:8080/api/products/65fb91e789bb977c83873c12 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzYWE5ZDhmYjM4NmFjNmYzZDNlNmMiLCJlbWFpbCI6IlBoYXRAZ21haWwuY29tIiwiaWF0IjoxNzEwOTg3NjU1LCJleHAiOjE3MTIyODM2NTV9.Ez1vR9GQFuXetd_82m6f5gsT76JXzv6ks8j_C_tplyQ

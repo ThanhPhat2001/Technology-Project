@@ -1,0 +1,21 @@
+POST http://localhost:8080/api/customers HTTP/1.1
+content-type: application/json
+
+ {
+    "firstName": "Mia",
+    "lastName": "Kim",
+    "email": "mia.kim@example.com",
+    "phoneNumber": "0223459781",
+    "street": "890 Elm St",
+    "city": "Sometown",
+    "state": "NY",
+    "birthDay": "1998-06-28",
+    "password": "Mypass123",
+    "photo": "https://avatars.githubusercontent.com/u/97165289",
+    "zip_code": "12345"
+}
+
+###
+DELETE   http://localhost:8080/api/customers/65f8ec67c545ec5e6cd8a958 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzYWE5ZDhmYjM4NmFjNmYzZDNlNmMiLCJlbWFpbCI6IlBoYXRAZ21haWwuY29tIiwiaWF0IjoxNzEwODE0MDU2LCJleHAiOjE3MTIxMTAwNTZ9.EpzYistH0ZSec150z09lBeCKm4SLL31oCc6nxgFyW4s
