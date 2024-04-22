@@ -58,7 +58,7 @@ const employeeSchema = new Schema<IEmployee>(
         message: (props) => `${props.value} is not a valid password!`,
       },
     },
-    photo: {
+    avatar: {
       type: String,
     },
     role: {
@@ -66,11 +66,7 @@ const employeeSchema = new Schema<IEmployee>(
       required: true,
       enum: ["Admin", "User", "Editor"],
       default: "User",
-    },
-    active: {
-      type: Boolean,
-      default: true,
-    },
+    }
   },
   {
     timestamps: true, //true tự tạo ra createAt và updateAt

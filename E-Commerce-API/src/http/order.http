@@ -1,0 +1,55 @@
+POST http://localhost:8080/api/orders HTTP/1.1
+content-type: application/json
+
+{
+  "fullName": "David John",
+  "email": "john123@example.com",
+  "phoneNumber": "1234567822",
+  "orderStatus": "pending",
+  "orderDate": "2023-10-27",
+  "shippingDate": null,
+  "orderNote": "",
+  "shippingStreet": "38 Yên Bái",    
+  "shippingCity": "Đà Nẵng",  
+  "shippingState": "Việt Nam",  
+  "paymentType": "CREDIT CARD",
+  "orderDetail": [
+    {
+      "product": "6614b449c1b79df0c9b9c2d2",
+      "quantity": 2
+    },
+     {
+      "product": "6610c3f2338c366ad8a66834",
+      "quantity": 5
+    }
+  ]
+}
+
+###
+PATCH  http://localhost:8080/api/orders/6600eae6761386b68a767e59 HTTP/1.1
+content-type: application/json
+
+{
+  "fullName": "David John",
+  "email": "john.doe@example.com",
+  "phoneNumber": "1234567890",
+  "orderStatus": "pending",
+  "orderDate": "2023-10-27",
+  "shippingDate": null,
+  "orderNote": "",
+  "shippingStreet": "38 Yên Bái",    
+  "shippingCity": "Đà Nẵng",  
+  "shippingState": "Việt Nam",  
+  "paymentType": "CREDIT CARD",
+  "orderDetail": [
+    {
+      "product": "6610c3f2338c366ad8a66834",
+      "quantity": 10
+    }
+  ]
+}
+
+###
+DELETE http://localhost:8080/api/orders/6600e601debcc28762fad2f3 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzYWE5ZDhmYjM4NmFjNmYzZDNlNmMiLCJlbWFpbCI6IlBoYXRAZ21haWwuY29tIiwiaWF0IjoxNzExMzM1OTM5LCJleHAiOjE3MTI2MzE5Mzl9.sJEDxDDcg3HQDBqFRC2nkMn8YvTVnHINW9wBmfZSa9Y

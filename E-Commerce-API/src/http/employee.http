@@ -3,15 +3,14 @@ content-type: application/json
 
  {
     "firstName": "Mai",
-    "lastName": "Anh",
-    "email": "Anh@gmail.com",
-    "phoneNumber": "0909123931",
+    "lastName": "Phat",
+    "email": "Phat@gmail.com",
+    "phoneNumber": "0904112123",
     "address": "38 Yên Bái",
     "birthDay": "1995-09-02",
     "password": "Mypass123",
-    "photo": "https://avatars.githubusercontent.com/u/97165289",
-    "role": "Editor",
-    "active": true
+    "avatar": "https://avatars.githubusercontent.com/u/97165289",
+    "role": "Admin"
 }
 
 ###

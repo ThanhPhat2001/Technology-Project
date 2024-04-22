@@ -6,7 +6,8 @@ const getAllBrands = async (page: number, limit: number) => {
     const brands = await Brand.find()
       .select("-__v")
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
     const totalRecords = await Brand.countDocuments();
 

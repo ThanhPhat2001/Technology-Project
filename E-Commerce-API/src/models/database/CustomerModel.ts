@@ -71,7 +71,7 @@ const customerSchema = new Schema<ICustomer>(
         message: (props) => `${props.value} is not a valid password!`,
       },
     },
-    photo: {
+    avatar: {
       type: String,
     },
     zip_code: {

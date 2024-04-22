@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { sendJsonSuccess } from '../helpers/responseHandler';
 import productService from '../services/ProductService';
 import Product from '../models/response/Product';
-import { ProductRespone } from '../models/response/ProductResposponse';
+import { ProductRespone } from '../models/response/ProductResponse';
 
 
 const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
@@ -23,11 +23,12 @@ const getAllProducts = async (req: Request, res: Response, next: NextFunction) =
         product.product_name,
         product.price,
         product.discount,
+        product.salePrice,
         product.categoryId,
         product.brandId,
         product.description,
         product.stock,
-        product.thumbnail,
+        product.images,
         product.slug
       )
     });
@@ -42,7 +43,7 @@ const getAllProducts = async (req: Request, res: Response, next: NextFunction) =
       products
     )
 
-    res.status(200).json(productResponse);
+    sendJsonSuccess(res)(productResponse);
   } catch (error) {
     next(error);
   }
@@ -60,15 +61,16 @@ const getProductById = async (req: Request, res: Response, next: NextFunction) =
 
 
     const product = new Product(
-      productGetById.id,
+      productGetById.id as any,
       productGetById.product_name,
       productGetById.price,
       productGetById.discount,
+      productGetById.salePrice,
       productGetById.categoryId as any,
       productGetById.brandId  as any,
       productGetById.description,
       productGetById.stock,
-      productGetById.thumbnail,
+      productGetById.images,
       productGetById.slug
     )
     sendJsonSuccess(res)(product);
@@ -86,15 +88,16 @@ const getProductBySlug = async (req: Request, res: Response, next: NextFunction)
 
 
     const product = new Product(
-      productGetBySlug.id,
+      productGetBySlug.id as any, 
       productGetBySlug.product_name,
       productGetBySlug.price,
       productGetBySlug.discount,
+      productGetBySlug.salePrice,
       productGetBySlug.categoryId as any,
       productGetBySlug.brandId  as any,
       productGetBySlug.description,
       productGetBySlug.stock,
-      productGetBySlug.thumbnail,
+      productGetBySlug.images,
       productGetBySlug.slug
     )
     sendJsonSuccess(res)(product);

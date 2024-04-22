@@ -2,13 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import { sendJsonSuccess } from "../helpers/responseHandler";
 import employeeService from "../services/EmployeeService";
 import Employee from "../models/response/Employee";
+import {EmployeeRespone} from "../models/response/EmployeeResponse"
 
 const getAllEmployees = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const employeeGetAll = await employeeService.getAllEmployees();
+    
+    const page = req.query.page ? parseInt(req.query.page as string) : 1;
+    const limit = req.query.limit ? parseInt(req.query.limit as string) : 5;
+    
+    const employeeGetAll = await employeeService.getAllEmployees(page, limit);
     console.log("employeeGetAll", employeeGetAll);
 
-    const employees = employeeGetAll.map((employee) => {
+    const employees = (await employeeGetAll.employees).map((employee) => {
       return new Employee(
         employee.id,
         employee.firstName,
@@ -18,13 +23,21 @@ const getAllEmployees = async (req: Request, res: Response, next: NextFunction) 
         employee.phoneNumber,
         employee.address,
         employee.birthDay,
-        employee.photo,
-        employee.role,
-        employee.active
+        employee.password,
+        employee.avatar,
+        employee.role
       );
     });
 
-    res.status(200).json(employees);
+    const employyeResponse = new EmployeeRespone(
+      employeeGetAll.totalRecords,
+      employeeGetAll.totalPages,
+      employeeGetAll.currentPage,
+      employeeGetAll.recordsPerPage,
+      employees
+  )
+
+  sendJsonSuccess(res)(employyeResponse);
   } catch (error) {
     next(error);
   }
@@ -48,12 +61,12 @@ const getEmployeeById = async (req: Request, res: Response, next: NextFunction) 
       employeeGetById.phoneNumber,
       employeeGetById.address,
       employeeGetById.birthDay,
-      employeeGetById.photo,
-      employeeGetById.role,
-      employeeGetById.active
+      employeeGetById.password,
+      employeeGetById.avatar,
+      employeeGetById.role
     );
 
-    res.status(200).json(employee);
+    sendJsonSuccess(res)(employee);
         console.log( employee);
   } catch (error) {
     next(error);

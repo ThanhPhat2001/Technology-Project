@@ -28,7 +28,7 @@ const getAllBrands = async (req: Request, res: Response, next: NextFunction) => 
       brandGetAll.recordsPerPage,
       brands
     );
-    res.status(200).json(brandResposnt);
+    sendJsonSuccess(res)(brandResposnt);
   } catch (error) {
     next(error);
   }

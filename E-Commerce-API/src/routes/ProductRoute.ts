@@ -14,13 +14,13 @@ router.get("/slug/:slug", productController.getProductBySlug);
 
 router.post(
   "/",
-  validateSchema(ProductValidation.createProduct),
+  // validateSchema(ProductValidation.createProduct),
   productController.createProduct
 );
 
 router.patch(
   "/:id",
-  validateSchema(ProductValidation.updateProduct),
+  // validateSchema(ProductValidation.updateProduct),
   productController.updateProduct
 );
 

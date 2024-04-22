@@ -1,44 +1,41 @@
 import { List } from "lodash";
-import Product from "../response/Product";
+import Order from "./Order";
 
-export class ProductRespone {
-  private products: List<Product>;
+export class OrderRespone {
+  private orders: List<Order>;
   private totalRecords: number;
   private totalPages: number;
   private currentPage: number;
   private recordsPerPage: number;
-  private filteredCount: number
 
   constructor(
     totalRecords: number,
     totalPages: number,
     currentPage: number,
     recordsPerPage: number,
-    filteredCount: number,
-    products: List<Product>
+    orders: List<Order>
   ) {
-    this.products = products;
+    this.orders = orders;
     this.totalRecords = totalRecords;
     this.totalPages = totalPages;
     this.currentPage = currentPage;
     this.recordsPerPage = recordsPerPage;
-    this.filteredCount =filteredCount
   }
 
   /**
    * Getter $categogies
-   * @return {List<Product>}
+   * @return {List<Order>}
    */
-  public get $products(): List<Product> {
-    return this.products;
+  public get $orders(): List<Order> {
+    return this.orders;
   }
 
   /**
    * Setter $categogies
-   * @param {List<Product>} value
+   * @param {List<Order>} value
    */
-  public set $products(value: List<Product>) {
-    this.products = value;
+  public set $orders(value: List<Order>) {
+    this.orders = value;
   }
 
   /**
@@ -105,16 +102,4 @@ export class ProductRespone {
     this.totalRecords = value;
   }
 
-
-  public get $filteredCount(): number {
-    return this.filteredCount;
-  }
-
-  /**
-   * Setter $totalRecords
-   * @param {number} value
-   */
-  public set $filteredCount(value: number) {
-    this.filteredCount = value;
-  }
 }

@@ -3,15 +3,15 @@ content-type: application/json
 
  {
     "firstName": "Mia",
-    "lastName": "Kim",
-    "email": "mia.kim@example.com",
-    "phoneNumber": "0223459781",
+    "lastName": "phat",
+    "email": "maithanhphat2001@gmail.com",
+    "phoneNumber": "0223459732",
     "street": "890 Elm St",
     "city": "Sometown",
     "state": "NY",
-    "birthDay": "1998-06-28",
+    "birthDay": "2001-04-19",
     "password": "Mypass123",
-    "photo": "https://avatars.githubusercontent.com/u/97165289",
+    "avatar": "https://avatars.githubusercontent.com/u/97165289",
     "zip_code": "12345"
 }
 

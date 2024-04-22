@@ -1,5 +1,26 @@
 import { ObjectId, Date } from "mongoose";
 
+
+export enum EnumOrderStatus {
+  Pending = 'pending',
+  Confirmed = 'confirmed',
+  Canceled = 'canceled',
+  PrepareShipping = 'prepareShipping',
+  Shipping = 'shipping',
+  CancelShipping = 'cancelShipping',
+  Shipped = 'shipped',
+  PendingPaid = 'pendingPaid',
+  Paid = 'paid',
+  Refund = 'refund',
+  Finished = 'finished'
+}
+
+export enum EnumPayments {
+  Cash = 'CASH',
+  Credit = 'CREDIT CARD',
+  Cod = 'COD'
+}
+
 export interface ICategory {
   id: ObjectId,
   category_name: string;
@@ -24,9 +45,8 @@ export interface IEmployee {
   address: string;
   birthDay: Date;
   password: string;
-  photo: string;
+  avatar: string;
   role: string;
-  active: boolean;
 }
 
 export interface ICustomer {
@@ -41,19 +61,43 @@ export interface ICustomer {
   state: string
   birthDay: Date;
   password: string;
-  photo: string;
+  avatar: string;
   zip_code: number
 }
 
 export interface IProduct {
   id: ObjectId,
-  product_name: string,
+  product_name: string
   slug: string,
   price: number,
+  salePrice: number,
   discount: number,
   categoryId: ObjectId,
   brandId: ObjectId,
   description: string,
   stock: number,
-  thumbnail: string
+  images?: string[];
+}
+
+export interface IOrder {
+  id: ObjectId,
+  fullName: string,
+  email: string,
+  phoneNumber: string
+  orderStatus: EnumOrderStatus,
+  orderDate: Date,
+  shippingDate: Date,
+  orderNote: string,
+  shippingStreet: string,
+  shippingCity: string,
+  shippingState: string,
+  paymentType: EnumPayments,
+  totalPrice: number,
+  orderDetail: IOderDetail[]
+}
+
+export interface IOderDetail  {
+  product: ObjectId;
+  quantity: number;
+  totalPrice: number;
 }

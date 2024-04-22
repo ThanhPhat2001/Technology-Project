@@ -11,7 +11,7 @@ export default class Customer {
   private city: string;
   private state: string;
   private birthDay: Date;
-  private photo: string;
+  private avatar: string;
   private zip_code: number;
 
   public constructor(
@@ -25,7 +25,7 @@ export default class Customer {
     city: string,
     state: string,
     birthDay: Date,
-    photo: string,
+    avatar: string,
     zip_code: number
   ) {
     this.id = id;
@@ -38,7 +38,7 @@ export default class Customer {
     this.city = city;
     this.state = state;
     this.birthDay = birthDay;
-    this.photo = photo;
+    this.avatar = avatar;
     this.zip_code = zip_code;
   }
 
@@ -122,12 +122,12 @@ export default class Customer {
     this.birthDay = birthDay;
   }
 
-  public getPhoto(): string {
-    return this.photo;
+  public getAvatar(): string {
+    return this.avatar;
   }
 
-  public setPhoto(photo: string): void {
-    this.photo = photo;
+  public setAvatar(avatar: string): void {
+    this.avatar = avatar;
   }
 
   public getZip_code(): number {

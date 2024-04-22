@@ -25,12 +25,12 @@ const getAllCustomers = async (req: Request, res: Response, next: NextFunction) 
         customer.city,
         customer.state,
         customer.birthDay,
-        customer.photo,
+        customer.avatar,
         customer.zip_code
       );
     });
 
-    const response = new CustomerRespone(
+    const customerResponse = new CustomerRespone(
         customerGetAll.totalRecords,
         customerGetAll.totalPages,
         customerGetAll.currentPage,
@@ -38,7 +38,7 @@ const getAllCustomers = async (req: Request, res: Response, next: NextFunction) 
         customers
     )
 
-    res.status(200).json(response);
+    sendJsonSuccess(res)(customerResponse);
   } catch (error) {
     next(error);
   }
@@ -52,7 +52,7 @@ const getCustomerById = async (req: Request, res: Response, next: NextFunction) 
       return res.status(404).json({ message: "employee not found" });
     }
 
-    const employee = new Customer(
+    const customer = new Customer(
         customerGetById.id,
         customerGetById.firstName,
         customerGetById.lastName,
@@ -63,11 +63,11 @@ const getCustomerById = async (req: Request, res: Response, next: NextFunction) 
         customerGetById.city,
         customerGetById.state,
         customerGetById.birthDay,
-        customerGetById.photo,
+        customerGetById.avatar,
         customerGetById.zip_code
     );
 
-    res.status(200).json(employee);
+    sendJsonSuccess(res)(customer);
 
   } catch (error) {
     next(error);

@@ -3,6 +3,11 @@ import { IProduct } from "../../types/models";
 import buildSlug from "../../helpers/buildSlug";
 import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
 
+// const arrayLimit = (val: any) => val.length <= 5;
+
+// const imageSchema = new Schema({
+//   url: { type: String },
+// }, { _id: false });
 
 const productSchema = new Schema<IProduct>({
   product_name: {
@@ -76,8 +81,9 @@ const productSchema = new Schema<IProduct>({
       },
     default: 0
   },
-  thumbnail: {
-    type: String
+  images: {
+    type: Array,
+    default: []
   }
 },
 {
@@ -94,9 +100,13 @@ productSchema.plugin(mongooseLeanVirtuals);
 
 productSchema.pre("save", async function (next) {
     if(!this.slug){
-        this.slug = buildSlug(this.product_name);
+        this.slug = buildSlug(this.product_name); 
     }
     next();
+});
+
+productSchema.virtual('salePrice').get(function() {
+  return this.price * (1 - this.discount / 100);
 });
 
 

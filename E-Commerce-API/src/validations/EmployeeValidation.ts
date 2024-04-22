@@ -11,8 +11,8 @@ const createEmployee = {
     address: Joi.string().optional().allow(""),
     birthDay: Joi.date().optional().allow(""),
     password: Joi.custom(passwordStrong).required(),
-    photo: Joi.string().optional().allow(""),
-    role: Joi.string().required(),
+    avatar: Joi.string().optional().allow(""),
+    role: Joi.string().optional().allow(""),
     active: Joi.boolean(),
   }),
 };
@@ -27,8 +27,8 @@ const updateEmployee = {
     address: Joi.string().optional().allow(""),
     birthDay: Joi.date().optional().allow(""),
     password: Joi.custom(passwordStrong).required(),
-    photo: Joi.string().optional().allow(""),
-    role: Joi.string().required(),
+    avatar: Joi.string().optional().allow(""),
+    role: Joi.string().optional().allow(""),
     active: Joi.boolean(),
   }),
 };

@@ -27,7 +27,8 @@ const getAllCategories = async (req: Request, res: Response, next: NextFunction)
       categoryGetAll.recordsPerPage,
       categories
     );
-    res.status(200).json(ressposnt);
+    
+    sendJsonSuccess(res)(ressposnt);
   } catch (error) {
     next(error);
   }
@@ -100,9 +101,10 @@ const createCategory = async (req: Request, res: Response, next: NextFunction) =
 
 const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params;
-    console.log(id, req.body);
-    const payload = req.body;
+    const { id } = req.params; // Lấy id từ params của request
+    const payload = req.body; // Lấy dữ liệu cập nhật từ body của request
+
+
     const updatedCategory = await categoryService.updateCategory(id, payload);
     sendJsonSuccess(res)(updatedCategory);
   } catch (error) {

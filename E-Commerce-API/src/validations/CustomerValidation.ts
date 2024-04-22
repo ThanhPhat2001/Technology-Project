@@ -12,7 +12,7 @@ const createCustomer = {
     state: Joi.string().optional().required(),
     birthDay: Joi.date().optional().allow(""),
     password: Joi.custom(passwordStrong).required(),
-    photo: Joi.string().optional().allow(""),
+    avatar: Joi.string().optional().allow(""),
     zip_code: Joi.string().optional().allow(""),
   }),
 };
@@ -28,7 +28,7 @@ const updateCustomer = {
     state: Joi.string().optional().required(),
     birthDay: Joi.date().optional().allow(""),
     password: Joi.custom(passwordStrong).required(),
-    photo: Joi.string().optional().allow(""),
+    avatar: Joi.string().optional().allow(""),
     zip_code: Joi.string().optional().allow(""),
   }),
 };

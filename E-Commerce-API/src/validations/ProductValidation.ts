@@ -10,7 +10,7 @@ const createProduct = {
     brandId: Joi.string().required(),
     description: Joi.string().optional().allow(""),
     stock: Joi.number().optional().allow(""),
-    thumbnail: Joi.string().optional().allow(""),
+    thumbnail: Joi.array().optional().allow(""),
   }),
 };
 
@@ -24,7 +24,7 @@ const updateProduct = {
     brandId: Joi.string().required(),
     description: Joi.string().optional().allow(""),
     stock: Joi.number().optional().allow(""),
-    thumbnail: Joi.string().optional().allow(""),
+    thumbnail: Joi.array().optional().allow(""),
   }),
 };
 

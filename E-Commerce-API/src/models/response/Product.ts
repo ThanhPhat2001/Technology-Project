@@ -1,56 +1,59 @@
-import { Schema } from "mongoose";
+import { Schema, Types } from "mongoose";
 
 interface Category {
-  id: string | Schema.Types.ObjectId;
+  id: string | Types.ObjectId;
   category_name: string;
 }
 
 interface Brand {
-  id: string | Schema.Types.ObjectId;
+  id: string | Types.ObjectId;
   brand_name: string;
 }
 
 export default class Product {
-  private id: string | Schema.Types.ObjectId;;
+  private id: string | Types.ObjectId;
   private product_name: string;
   private price: number;
   private discount: number;
+  private salePrice: number;
   private categoryId: Category;
   private brandId: Brand;
   private description: string;
   private stock: number;
-  private thumbnail: string;
+  private images: string[] = [];
   private slug: string;
 
-  public constructor(
-    id: string | Schema.Types.ObjectId,
+  constructor(
+    id: string | Types.ObjectId,
     product_name: string,
     price: number,
     discount: number,
+    salePrice: number,
     categoryId: Category,
     brandId: Brand,
     description: string,
     stock: number,
-    thumbnail: string,
+    images: string[] = [],
     slug: string
   ) {
-    this.id=id;
-    this.product_name=product_name;
-    this.price=price;
-    this.discount=discount;
-    this.categoryId=categoryId;
-    this.brandId=brandId;
-    this.description=description;
-    this.stock=stock;
-    this.thumbnail=thumbnail;
-    this.slug=slug;
+    this.id = id;
+    this.product_name = product_name;
+    this.price = price;
+    this.discount = discount;
+    this.salePrice = salePrice;
+    this.categoryId = categoryId;
+    this.brandId = brandId;
+    this.description = description;
+    this.stock = stock;
+    this.images = images;
+    this.slug = slug;
   }
 
-  public getId(): string | Schema.Types.ObjectId {
+  public getId(): string | Types.ObjectId {
     return this.id;
   }
 
-  public setId(id: string | Schema.Types.ObjectId): void {
+  public setId(id: string | Types.ObjectId): void {
     this.id = id;
   }
 
@@ -76,6 +79,14 @@ export default class Product {
 
   public setDiscount(discount: number): void {
     this.discount = discount;
+  }
+
+  public getsalePrice(): number {
+    return this.salePrice;
+  }
+
+  public setsalePrice(salePrice: number): void {
+    this.salePrice = salePrice;
   }
 
   public getCategoryId(): Category {
@@ -110,12 +121,12 @@ export default class Product {
     this.stock = stock;
   }
 
-  public getThumbnail(): string {
-    return this.thumbnail;
+  public getImages(): string[] {
+    return this.images;
   }
 
-  public setThumbnail(thumbnail: string): void {
-    this.thumbnail = thumbnail;
+  public setImages(images: string[]): void {
+    this.images = images;
   }
 
   public getSlug(): string {

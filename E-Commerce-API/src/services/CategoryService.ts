@@ -6,7 +6,8 @@ const getAllCategories = async (page: number, limit: number) => {
     const categories = await Category.find()
       .select("-__v")
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
     const totalRecords = await Category.countDocuments();
 

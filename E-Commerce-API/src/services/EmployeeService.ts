@@ -1,9 +1,20 @@
 import Employee from "../models/database/EmployeeModel";
 import { IEmployee } from "../types/models";
 
-const getAllEmployees = async () => {
-  const employees = Employee.find({}, " -__v");
-  return employees;
+const getAllEmployees = async (page: number, limit: number) => {
+  const employees = Employee.find()
+  .select('-__v')
+  .skip((page - 1) * limit)
+  .limit(limit);
+  const totalRecords = await Employee.countDocuments();
+  
+  return {
+    employees,
+    totalRecords,
+    totalPages: Math.ceil(totalRecords / limit),
+    currentPage: page,
+    recordsPerPage: limit,
+  };
 };
 
 const getEmployeeById = async (id: string) => {

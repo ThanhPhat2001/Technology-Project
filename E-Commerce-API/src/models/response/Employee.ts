@@ -9,9 +9,9 @@ export default class Employee {
   private phoneNumber: string;
   private address: string;
   private birthDay: Date;
-  private photo: string;
+  private password: string;
+  private avatar: string;
   private role: string;
-  private active: boolean;
 
   public constructor(
     id: string,
@@ -22,9 +22,9 @@ export default class Employee {
     phoneNumber: string,
     address: string,
     birthDay: Date,
-    photo: string,
+    password: string,
+    avatar: string,
     role: string,
-    active: boolean
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -34,9 +34,9 @@ export default class Employee {
     this.phoneNumber = phoneNumber;
     this.address = address;
     this.birthDay = birthDay;
-    this.photo = photo;
+    this.password = password;
+    this.avatar = avatar;
     this.role = role;
-    this.active = active;
   }
 
   public getId(): string {
@@ -103,12 +103,21 @@ export default class Employee {
     this.birthDay = birthDay;
   }
 
-  public getPhoto(): string {
-    return this.photo;
+  public getPassword(): string {
+    return this.password;
+}
+
+public setPassword(password: string): void {
+    this.password = password;
+}
+
+
+  public getAvatar(): string {
+    return this.avatar;
   }
 
-  public setPhoto(photo: string): void {
-    this.photo = photo;
+  public setAvatar(avatar: string): void {
+    this.avatar = avatar;
   }
 
   public getRole(): string {
@@ -117,14 +126,6 @@ export default class Employee {
 
   public setRole(role: string): void {
     this.role = role;
-  }
-
-  public isActive(): boolean {
-    return this.active;
-  }
-
-  public setActive(active: boolean): void {
-    this.active = active;
   }
 
 }

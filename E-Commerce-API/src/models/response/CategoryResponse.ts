@@ -2,7 +2,7 @@ import { List } from "lodash";
 import Category from "../response/Category";
 
 export class CategoryRespone {
-  private categogies: List<Category>;
+  private categories: List<Category>;
   private totalRecords: number;
   private totalPages: number;
   private currentPage: number;
@@ -16,7 +16,7 @@ export class CategoryRespone {
     recordsPerPage: number,
     categogies: List<Category>
   ) {
-    this.categogies = categogies;
+    this.categories = categogies;
     this.totalRecords = totalRecords;
     this.totalPages = totalPages;
     this.currentPage = currentPage;
@@ -27,16 +27,16 @@ export class CategoryRespone {
    * Getter $categogies
    * @return {List<Category>}
    */
-  public get $categogies(): List<Category> {
-    return this.categogies;
+  public get $categories(): List<Category> {
+    return this.categories;
   }
 
   /**
    * Setter $categogies
    * @param {List<Category>} value
    */
-  public set $categogies(value: List<Category>) {
-    this.categogies = value;
+  public set $categories(value: List<Category>) {
+    this.categories = value;
   }
 
   /**
