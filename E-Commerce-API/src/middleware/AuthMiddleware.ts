@@ -47,7 +47,7 @@ export const checkAuthorize = (roles: string[] = []) => {
   // if (typeof roles === 'string') {
   //     roles = [roles];
   // }
-
+  
   return (req: Request, res: Response, next: NextFunction) => {
     
     if (roles.length && res.locals.user.role && !roles.includes(res.locals.user.role)) {

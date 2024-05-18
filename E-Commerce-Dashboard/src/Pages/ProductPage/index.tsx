@@ -101,6 +101,7 @@ const Product = () => {
     queryKey: ["categories"],
     queryFn: async () => await axiosClient.get(config.urlAPI + `/categories`),
   });
+  console.log("queryCategorie",queryCategories.data?.data.data.categories)
 
   const queryBrands = useQuery({
     queryKey: ["brands"],
@@ -362,9 +363,9 @@ const Product = () => {
               setIsModalEditOpen(true); //show modal edit lên
               updateForm.setFieldsValue({
                 ...record,
-                categoryId: record.categoryId.id,
-                brandId: record.brandId.id,
-                images: record.images.map((item) => ({ url: item.url })),
+                // categoryId: record.categoryId.id,
+                // brandId: record.brandId.id,
+                // images: record.images.map((item) => ({ url: item.url })),
               });
             }}
           />
@@ -377,7 +378,7 @@ const Product = () => {
               mutationDelete.mutate(record.id);
             }}
             icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            onCancel={() => {}}
+            onCancel={() => { }}
             okText="YES"
             okType="danger"
             cancelText="CANCEL"
@@ -391,74 +392,74 @@ const Product = () => {
 
   return (
     <>
-     <Card
-      title="PRODUCTS LIST"
-      extra={
-        <Button
-          type="primary"
-          onClick={() => {
-            console.log('Thêm mới');
-            setIsModalCreateOpen(true);
+      <Card
+        title="PRODUCTS LIST"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => {
+              console.log('Thêm mới');
+              setIsModalCreateOpen(true);
 
-          }}
-        >
-          Add Product
-        </Button>
-      }
-    >
-      {contextHolder}
- 
-      <Table
-        pagination={false}
-        columns={columns}
-        rowKey={"id"}
-        dataSource={queryProduct.data?.data.data.products}
-      />
-      <div>
-        <Pagination
-          defaultCurrent={int_page}
-          total={queryProduct.data?.data.data.totalRecords}
-          showSizeChanger
-          defaultPageSize={int_limit}
-          onChange={onChangePagination}
-          showTotal={(total) => `Total ${total} items`}
-        />
-      </div>
-      {/* begin Edit Modal */}
-      <Modal
-        title="Edit Product"
-        open={isModalEditOpen}
-        onOk={handleEditOk}
-        onCancel={handleEditCancel}
-      >
-        <Form
-          form={updateForm}
-          name="edit-form"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinishEdit}
-          onFinishFailed={onFinishEditFailed}
-          autoComplete="off"
-        >
-          <Form.Item<DataType>
-            label="Name"
-            name="product_name"
-            rules={[{ min: 4, message: "Tối thiểu 4 kí tự" }]}
+            }}
           >
-            <Input />
-          </Form.Item>
+            Add Product
+          </Button>
+        }
+      >
+        {contextHolder}
 
-          <Form.Item<DataType> label="Price" name="price">
-            <Input />
-          </Form.Item>
+        <Table
+          pagination={false}
+          columns={columns}
+          rowKey={"id"}
+          dataSource={queryProduct.data?.data.data.products}
+        />
+        <div>
+          <Pagination
+            defaultCurrent={int_page}
+            total={queryProduct.data?.data.data.totalRecords}
+            showSizeChanger
+            defaultPageSize={int_limit}
+            onChange={onChangePagination}
+            showTotal={(total) => `Total ${total} items`}
+          />
+        </div>
+        {/* begin Edit Modal */}
+        <Modal
+          title="Edit Product"
+          open={isModalEditOpen}
+          onOk={handleEditOk}
+          onCancel={handleEditCancel}
+        >
+          <Form
+            form={updateForm}
+            name="edit-form"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinishEdit}
+            onFinishFailed={onFinishEditFailed}
+            autoComplete="off"
+          >
+            <Form.Item<DataType>
+              label="Name"
+              name="product_name"
+              rules={[{ min: 4, message: "Tối thiểu 4 kí tự" }]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item<DataType> label="Discount" name="discount">
-            <Input />
-          </Form.Item>
+            <Form.Item<DataType> label="Price" name="price">
+              <Input />
+            </Form.Item>
 
-          <Form.Item label="Category" name="categoryId">
-            <Select>
+            <Form.Item<DataType> label="Discount" name="discount">
+              <Input />
+            </Form.Item>
+
+            {/* <Form.Item label="Category" name="categoryId">
+            <Select> 
               {queryCategories.data?.data.data.categories.map(
                 (category: categoryType) => (
                   <Select.Option key={category.id} value={category.id}>
@@ -467,187 +468,207 @@ const Product = () => {
                 )
               )}
             </Select>
-          </Form.Item>
+          </Form.Item> */}
+            <Form.Item<DataType>
+              label="Category"
+              name="categoryId"
+              rules={[{ required: true, message: 'Please input book Category!' }]}
+              hasFeedback
+            >
+              <Select
+                options={
+                  queryCategories &&
+                  queryCategories.data &&
+                  queryCategories.data.data &&
+                  queryCategories.data.data.data &&
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  queryCategories.data.data.data.categories.map((item: any) => ({
+                    label: item.category_name,
+                    value: item.id,
+                  }))
+                }
+              />
+            </Form.Item>
 
-          <Form.Item label="Brand" name="brandId">
-            <Select>
-              {queryBrands.data?.data.data.brands.map((brand: brandType) => (
-                <Select.Option key={brand.id} value={brand.id}>
-                  {brand.brand_name}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-
-          <Form.Item<DataType>
-            label="Description"
-            name="description"
-            rules={[{ max: 500, message: "Tối đa 500 kí tự" }]}
-          >
-            <TextArea rows={4} />
-          </Form.Item>
-
-          <Form.Item<DataType>
-            hasFeedback
-            label="Stock"
-            name="stock"
-            rules={[
-              { required: false, message: "Please Stock" },
-              {
-                type: "number",
-                min: 0,
-                message: "Tối thiểu phải là 0",
-              },
-            ]}
-          >
-            <InputNumber min={0} defaultValue={0} />
-          </Form.Item>
-
-          <Form.Item label="Images" name="images">
-            <Image.PreviewGroup>
-              {updateForm
-                .getFieldValue("images")
-                ?.map((item: { url: string }, index: number) => (
-                  <div
-                    key={index}
-                    style={{ display: "inline-block", marginRight: "10px" }}
-                  >
-                    <Image src={item.url} width={50} />
-                  </div>
+            <Form.Item label="Brand" name="brandId">
+              <Select>
+                {queryBrands.data?.data.data.brands.map((brand: brandType) => (
+                  <Select.Option key={brand.id} value={brand.id}>
+                    {brand.brand_name}
+                  </Select.Option>
                 ))}
-            </Image.PreviewGroup>
-          </Form.Item>
+              </Select>
+            </Form.Item>
 
-          <Form.Item hidden label="Id" name="id">
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
-      {/* End Edit Modal */}
+            <Form.Item<DataType>
+              label="Description"
+              name="description"
+              rules={[{ max: 500, message: "Tối đa 500 kí tự" }]}
+            >
+              <TextArea rows={4} />
+            </Form.Item>
 
-      {/* begin Create Modal */}
-      <Modal
-        title="Create Product"
-        open={isModalCreateOpen}
-        onOk={handleCreateOk}
-        onCancel={handleCreateCancel}
-      >
-        <Form
-          form={createForm}
-          name="create-form"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinishCreate}
-          onFinishFailed={onFinishCreateFailed}
-          autoComplete="off"
+            <Form.Item<DataType>
+              hasFeedback
+              label="Stock"
+              name="stock"
+              rules={[
+                { required: false, message: "Please Stock" },
+                {
+                  type: "number",
+                  min: 0,
+                  message: "Tối thiểu phải là 0",
+                },
+              ]}
+            >
+              <InputNumber min={0} defaultValue={0} />
+            </Form.Item>
+
+            <Form.Item label="Images" name="images">
+              <Image.PreviewGroup>
+                {updateForm
+                  .getFieldValue("images")
+                  ?.map((item: { url: string }, index: number) => (
+                    <div
+                      key={index}
+                      style={{ display: "inline-block", marginRight: "10px" }}
+                    >
+                      <Image src={item.url} width={50} />
+                    </div>
+                  ))}
+              </Image.PreviewGroup>
+            </Form.Item>
+
+            <Form.Item hidden label="Id" name="id">
+              <Input />
+            </Form.Item>
+          </Form>
+        </Modal>
+        {/* End Edit Modal */}
+
+        {/* begin Create Modal */}
+        <Modal
+          title="Create Product"
+          open={isModalCreateOpen}
+          onOk={handleCreateOk}
+          onCancel={handleCreateCancel}
         >
-          <Form.Item<DataType>
-            label="Name"
-            name="product_name"
-            rules={[
-              { required: true, message: "Please input your Product Name!" },
-              { min: 4, message: "Tối thiểu 4 kí tự" },
-            ]}
+          <Form
+            form={createForm}
+            name="create-form"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinishCreate}
+            onFinishFailed={onFinishCreateFailed}
+            autoComplete="off"
           >
-            <Input />
-          </Form.Item>
+            <Form.Item<DataType>
+              label="Name"
+              name="product_name"
+              rules={[
+                { required: true, message: "Please input your Product Name!" },
+                { min: 4, message: "Tối thiểu 4 kí tự" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item<DataType>
-            label="Price"
-            name="price"
-            rules={[{ required: true, message: "Please input Product Price!" }]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item<DataType>
+              label="Price"
+              name="price"
+              rules={[{ required: true, message: "Please input Product Price!" }]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item<DataType> label="Discount" name="discount">
-            <Input />
-          </Form.Item>
+            <Form.Item<DataType> label="Discount" name="discount">
+              <Input />
+            </Form.Item>
 
-          <Form.Item<DataType>
-            label="Category"
-            name="categoryId"
-            rules={[
-              { required: true, message: "Please input product Category!" },
-            ]}
-          >
-            <Select
-              style={{ width: 150 }}
-              onChange={() => {}}
-              options={
-                queryCategories.data &&
-                queryCategories.data.data.data.categories.map(
-                  (c: { id: string; category_name: string }) => {
-                    return {
-                      value: c.id,
-                      label: c.category_name,
-                    };
-                  }
-                )
-              }
-            />
-          </Form.Item>
+            <Form.Item<DataType>
+              label="Category"
+              name="categoryId"
+              rules={[
+                { required: true, message: "Please input product Category!" },
+              ]}
+            >
+              <Select
+                style={{ width: 150 }}
+                onChange={() => { }}
+                options={
+                  queryCategories.data &&
+                  queryCategories.data.data.data.categories.map(
+                    (c: { id: string; category_name: string }) => {
+                      return {
+                        value: c.id,
+                        label: c.category_name,
+                      };
+                    }
+                  )
+                }
+              />
+            </Form.Item>
 
-          <Form.Item<DataType>
-            label="Brand"
-            name="brandId"
-            rules={[{ required: true, message: "Please input product Brand!" }]}
-          >
-            <Select
-              style={{ width: 150 }}
-              onChange={() => {}}
-              options={
-                queryBrands.data &&
-                queryBrands.data.data.data.brands.map(
-                  (c: { id: string; brand_name: string }) => {
-                    return {
-                      value: c.id,
-                      label: c.brand_name,
-                    };
-                  }
-                )
-              }
-            />
-          </Form.Item>
+            <Form.Item<DataType>
+              label="Brand"
+              name="brandId"
+              rules={[{ required: true, message: "Please input product Brand!" }]}
+            >
+              <Select
+                style={{ width: 150 }}
+                onChange={() => { }}
+                options={
+                  queryBrands.data &&
+                  queryBrands.data.data.data.brands.map(
+                    (c: { id: string; brand_name: string }) => {
+                      return {
+                        value: c.id,
+                        label: c.brand_name,
+                      };
+                    }
+                  )
+                }
+              />
+            </Form.Item>
 
-          <Form.Item<DataType>
-            label="Description"
-            name="description"
-            rules={[{ max: 500, message: "Tối đa 500 kí tự" }]}
-          >
-            <Input.TextArea rows={4} />
-          </Form.Item>
+            <Form.Item<DataType>
+              label="Description"
+              name="description"
+              rules={[{ max: 500, message: "Tối đa 500 kí tự" }]}
+            >
+              <Input.TextArea rows={4} />
+            </Form.Item>
 
-          <Form.Item<DataType>
-            hasFeedback
-            label="Stock"
-            name="stock"
-            rules={[
-              { required: false, message: "Please Stock" },
-              {
-                type: "number",
-                min: 0,
-                message: "Tối thiểu phải là 0",
-              },
-            ]}
-          >
-            <InputNumber min={0} defaultValue={0} />
-          </Form.Item>
+            <Form.Item<DataType>
+              hasFeedback
+              label="Stock"
+              name="stock"
+              rules={[
+                { required: false, message: "Please Stock" },
+                {
+                  type: "number",
+                  min: 0,
+                  message: "Tối thiểu phải là 0",
+                },
+              ]}
+            >
+              <InputNumber min={0} defaultValue={0} />
+            </Form.Item>
 
-          <Form.Item
-            label="Images"
-            name="images"
-            rules={[{ required: false, message: "Chọn ảnh" }]}
-          >
-            <UploadImages
-              fileList={fileList}
-              setFileList={setFileList}
-            ></UploadImages>
-          </Form.Item>
-        </Form>
-      </Modal>
-      {/* End Create Modal */}
+            <Form.Item
+              label="Images"
+              name="images"
+              rules={[{ required: false, message: "Chọn ảnh" }]}
+            >
+              <UploadImages
+                fileList={fileList}
+                setFileList={setFileList}
+              ></UploadImages>
+            </Form.Item>
+          </Form>
+        </Modal>
+        {/* End Create Modal */}
       </Card>
     </>
   );
